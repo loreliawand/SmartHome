@@ -8,7 +8,7 @@ const devices = [
     id: 1,
     name: 'newsun_2022',
     connectionState: 'connected',
-    isTurnedOn: true,
+    isTurnedOn: true.toString(),
     brightness: 95,
     color: 'white',
   },
@@ -17,7 +17,7 @@ const devices = [
     id: 2,
     name: 'tunnel_2022',
     connectionState: 'disconnected',
-    isTurnedOn: false,
+    isTurnedOn: false.toString(),
     powerConsumpction: 0,
   },
   {
