@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
-import ShortDevice from './components/shortDevice';
-import FullDevice from './components/fullDevice';
+
+const FullDevice = ({ device }) => {
+  return (
+    <div key={device.id}>
+      <div className="device">
+        {Object.keys(device).map((key) => (
+          <p key={key}>{device[key]}</p>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ShortDevice = ({ device }) => {
+  const commonProps = {
+    type: device.type,
+    id: device.id,
+    name: device.name,
+    connectionState: device.connectionState,
+  };
+
+  return (
+    <div className="device">
+      {Object.keys(commonProps).map((key) => (
+        <p key={key}>{device[key]}</p>
+      ))}
+    </div>
+  );
+};
 
 const App = ({ devices }) => {
   const [showFull, setShowFull] = useState(false);
-
-  const showFullDevice = (
-    <div>
-      {devices.map((device) => (
-        <FullDevice key={device.id} device={device} />
-      ))}
-    </div>
-  );
-
-  const showShortDevice = (
-    <div>
-      {devices.map((device) => (
-        <ShortDevice key={device.id} device={device} />
-      ))}
-    </div>
-  );
-
-  const showDevice = showFull ? showFullDevice : showShortDevice;
 
   return (
     <div>
@@ -33,13 +42,20 @@ const App = ({ devices }) => {
       <br></br>
       <br></br>
       <button>Sort by default</button>
-      <div
-        onClick={() => {
-          setShowFull(!showFull);
-        }}
-      >
-        {showDevice}
-      </div>
+      {devices.map((device) => (
+        <div
+          key={device.id}
+          onClick={() => {
+            setShowFull(!showFull);
+          }}
+        >
+          {showFull ? (
+            <FullDevice key={device.id} device={device} />
+          ) : (
+            <ShortDevice key={device.id} device={device} />
+          )}
+        </div>
+      ))}
     </div>
   );
 };
